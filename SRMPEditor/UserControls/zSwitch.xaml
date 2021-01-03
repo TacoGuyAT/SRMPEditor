@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="SRMPEditor.zSwitch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SRMPEditor"
+             mc:Ignorable="d"
+             d:DesignHeight="20" d:DesignWidth="240" SnapsToDevicePixels="true">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Border x:Name="bg" CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type local:zSwitch}},Path=Corner}"/>
+            <Border x:Name="inside" CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type local:zSwitch}},Path=Corner}" Height="14" Width="14" HorizontalAlignment="Left" Margin="3"/>
+        </Grid>
+        <TextBlock Grid.Column="1" Margin="6, 0" Text="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type local:zSwitch}},Path=Text}" Foreground="White" VerticalAlignment="Center"/>
+        <Rectangle Fill="#ff000000" Opacity="0.01" x:Name="rect" Grid.ColumnSpan="1048576"/>
+    </Grid>
+</UserControl>

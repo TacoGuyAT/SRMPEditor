@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30309.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRMPEditor", "SRMPEditor\SRMPEditor.csproj", "{4B1C7F63-0A4F-4B8D-8C74-D4100F9D0B9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRMultiplayer", "SRMultiplayer\SRMultiplayer.csproj", "{9B7005DA-3999-47D9-8027-4624C3A2FE68}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B1C7F63-0A4F-4B8D-8C74-D4100F9D0B9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B1C7F63-0A4F-4B8D-8C74-D4100F9D0B9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B1C7F63-0A4F-4B8D-8C74-D4100F9D0B9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B1C7F63-0A4F-4B8D-8C74-D4100F9D0B9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B7005DA-3999-47D9-8027-4624C3A2FE68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B7005DA-3999-47D9-8027-4624C3A2FE68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B7005DA-3999-47D9-8027-4624C3A2FE68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B7005DA-3999-47D9-8027-4624C3A2FE68}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45513D8F-AD21-4DEC-B42F-8707F12D8F43}
+	EndGlobalSection
+EndGlobal

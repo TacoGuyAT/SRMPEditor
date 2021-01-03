@@ -1,0 +1,1178 @@
+﻿{
+  "-1": {
+    "id": 60000,
+    "name": "[Empty]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "0": {
+    "id": 0,
+    "name": "[Air]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "1": {
+    "id": 1,
+    "name": "Rad Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "2": {
+    "id": 2,
+    "name": "Rock Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "3": {
+    "id": 3,
+    "name": "Pink Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "4": {
+    "id": 4,
+    "name": "Rad Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "5": {
+    "id": 5,
+    "name": "Rock Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "6": {
+    "id": 6,
+    "name": "Pink Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "7": {
+    "id": 7,
+    "name": "Gold Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "8": {
+    "id": 8,
+    "name": "Cuberry",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "9": {
+    "id": 9,
+    "name": "Mint Mango",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "10": {
+    "id": 10,
+    "name": "Tarr Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "11": {
+    "id": 11,
+    "name": "Gold Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "12": {
+    "id": 12,
+    "name": "Pink Rock Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "13": {
+    "id": 13,
+    "name": "Rad Rock Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "14": {
+    "id": 14,
+    "name": "Pink Rad Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "15": {
+    "id": 15,
+    "name": "[]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "16": {
+    "id": 16,
+    "name": "Hen Hen",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "17": {
+    "id": 17,
+    "name": "Roostro",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "18": {
+    "id": 18,
+    "name": "Chickadoo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "19": {
+    "id": 19,
+    "name": "Carrot",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "20": {
+    "id": 20,
+    "name": "Oca Oca",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "21": {
+    "id": 21,
+    "name": "Boom Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "22": {
+    "id": 22,
+    "name": "Pink Boom Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "23": {
+    "id": 23,
+    "name": "Boom Rock Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "24": {
+    "id": 24,
+    "name": "Boom Rad Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "25": {
+    "id": 25,
+    "name": "Boom Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "26": {
+    "id": 26,
+    "name": "Prickle Pear",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "27": {
+    "id": 27,
+    "name": "Pogofruit",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "28": {
+    "id": 28,
+    "name": "Silver Parsnip",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "29": {
+    "id": 29,
+    "name": "Heart Beet",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "30": {
+    "id": 30,
+    "name": "[]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "31": {
+    "id": 31,
+    "name": "Phosphor Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "32": {
+    "id": 32,
+    "name": "Phosphor Rock Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "33": {
+    "id": 33,
+    "name": "Boom Phosphor Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "34": {
+    "id": 34,
+    "name": "Phosphor Rad Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "35": {
+    "id": 35,
+    "name": "Pink Phosphor Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "36": {
+    "id": 36,
+    "name": "Phosphor Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "37": {
+    "id": 37,
+    "name": "Tabby Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "38": {
+    "id": 38,
+    "name": "Tabby Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "39": {
+    "id": 39,
+    "name": "Pink Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "40": {
+    "id": 40,
+    "name": "Boom Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "41": {
+    "id": 41,
+    "name": "Rad Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "42": {
+    "id": 42,
+    "name": "Rock Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "43": {
+    "id": 43,
+    "name": "Phosphor Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "44": {
+    "id": 44,
+    "name": "[Dry Reef Box]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "45": {
+    "id": 45,
+    "name": "[Indigo Quarry Box]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "46": {
+    "id": 46,
+    "name": "[Moss Blanket Box]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "47": {
+    "id": 47,
+    "name": "[Glass Desert Box]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "48": {
+    "id": 48,
+    "name": "Water",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Special"
+  },
+  "49": {
+    "id": 49,
+    "name": "Elder Hen",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "50": {
+    "id": 50,
+    "name": "Elder Roostro",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "51": {
+    "id": 51,
+    "name": "Hunter Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "52": {
+    "id": 52,
+    "name": "Hunter Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "53": {
+    "id": 53,
+    "name": "Pink Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "54": {
+    "id": 54,
+    "name": "Boom Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "55": {
+    "id": 55,
+    "name": "Rad Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "56": {
+    "id": 56,
+    "name": "Rock Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "57": {
+    "id": 57,
+    "name": "Phosphor Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "58": {
+    "id": 58,
+    "name": "Tabby Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "59": {
+    "id": 59,
+    "name": "Honey Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "60": {
+    "id": 60,
+    "name": "Honey Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "61": {
+    "id": 61,
+    "name": "Pink Honey Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "62": {
+    "id": 62,
+    "name": "Honey Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "63": {
+    "id": 63,
+    "name": "Honey Boom Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "64": {
+    "id": 64,
+    "name": "Honey Rad Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "65": {
+    "id": 65,
+    "name": "Honey Rock Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "66": {
+    "id": 66,
+    "name": "Honey Phosphor Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "67": {
+    "id": 67,
+    "name": "Honey Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "68": {
+    "id": 68,
+    "name": "Stony Hen",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "69": {
+    "id": 69,
+    "name": "Briar Hen",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "70": {
+    "id": 70,
+    "name": "Stony Chick",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "71": {
+    "id": 71,
+    "name": "Briar Chick",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "72": {
+    "id": 72,
+    "name": "Puddle Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "73": {
+    "id": 73,
+    "name": "Puddle Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "74": {
+    "id": 74,
+    "name": "[Breaking Box Particles]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "75": {
+    "id": 75,
+    "name": "[]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "76": {
+    "id": 76,
+    "name": "[Infinite Slime Key]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "77": {
+    "id": 77,
+    "name": "Lucky Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "78": {
+    "id": 78,
+    "name": "Crystal Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "79": {
+    "id": 79,
+    "name": "Crystal Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "80": {
+    "id": 80,
+    "name": "Pink Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "81": {
+    "id": 81,
+    "name": "Rock Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "82": {
+    "id": 82,
+    "name": "Tabby Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "83": {
+    "id": 83,
+    "name": "Phosphor Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "84": {
+    "id": 84,
+    "name": "Boom Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "85": {
+    "id": 85,
+    "name": "Rad Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "86": {
+    "id": 86,
+    "name": "Honey Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "87": {
+    "id": 87,
+    "name": "Hunter Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "88": {
+    "id": 88,
+    "name": "Odd Onion",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "89": {
+    "id": 89,
+    "name": "Quantum Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "90": {
+    "id": 90,
+    "name": "Pink Quantum Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "91": {
+    "id": 91,
+    "name": "Quantum Boom Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "92": {
+    "id": 92,
+    "name": "Quantum Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "93": {
+    "id": 93,
+    "name": "Quantum Honey Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "94": {
+    "id": 94,
+    "name": "Quantum Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "95": {
+    "id": 95,
+    "name": "Quantum Phosphor Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "96": {
+    "id": 96,
+    "name": "Quantum Rad Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "97": {
+    "id": 97,
+    "name": "Quantum Rock Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "98": {
+    "id": 98,
+    "name": "Quantum Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "99": {
+    "id": 99,
+    "name": "Quantum Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "100": {
+    "id": 100,
+    "name": "Phase Lemon",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "101": {
+    "id": 101,
+    "name": "Phase Lemon [Particles]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "102": {
+    "id": 102,
+    "name": "Dervish Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "103": {
+    "id": 103,
+    "name": "Dervish Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "104": {
+    "id": 104,
+    "name": "Mosaic Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "105": {
+    "id": 105,
+    "name": "Mosaic Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "106": {
+    "id": 106,
+    "name": "Tangle Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "107": {
+    "id": 107,
+    "name": "Tangle Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "108": {
+    "id": 108,
+    "name": "Fire Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "109": {
+    "id": 109,
+    "name": "Fire Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "110": {
+    "id": 10,
+    "name": "Painted Hen",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "111": {
+    "id": 111,
+    "name": "Painted Chick",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "112": {
+    "id": 112,
+    "name": "[Particles]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "113": {
+    "id": 113,
+    "name": "Ancient Water",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Special"
+  },
+  "114": {
+    "id": 114,
+    "name": "[]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "115": {
+    "id": 115,
+    "name": "Pink Tangle Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "116": {
+    "id": 116,
+    "name": "Quantum Tangle Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "117": {
+    "id": 117,
+    "name": "Honey Tangle Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "118": {
+    "id": 118,
+    "name": "Phosphor Tangle Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "119": {
+    "id": 119,
+    "name": "Tangle Boom Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "120": {
+    "id": 120,
+    "name": "Tangle Rad Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "121": {
+    "id": 121,
+    "name": "Tangle Rock Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "122": {
+    "id": 122,
+    "name": "Tangle Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "123": {
+    "id": 123,
+    "name": "Tangle Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "124": {
+    "id": 124,
+    "name": "Tangle Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "125": {
+    "id": 125,
+    "name": "Tangle Mosaic Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "126": {
+    "id": 126,
+    "name": "Quantum Mosaic Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "127": {
+    "id": 127,
+    "name": "Honey Mosaic Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "128": {
+    "id": 128,
+    "name": "Phosphor Mosaic Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "129": {
+    "id": 129,
+    "name": "Mosaic Tangle Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "130": {
+    "id": 130,
+    "name": "Mosaic Boom Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "131": {
+    "id": 131,
+    "name": "Mosaic Rad Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "132": {
+    "id": 132,
+    "name": "Mosaic Rock Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "133": {
+    "id": 133,
+    "name": "Mosaic Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "134": {
+    "id": 134,
+    "name": "Mosaic Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "135": {
+    "id": 135,
+    "name": "Mosaic Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "136": {
+    "id": 136,
+    "name": "Pink Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "137": {
+    "id": 137,
+    "name": "Quantum Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "138": {
+    "id": 138,
+    "name": "Honey Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "139": {
+    "id": 139,
+    "name": "Phosphor Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "140": {
+    "id": 140,
+    "name": "Tangle Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "141": {
+    "id": 141,
+    "name": "Mosaic Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "142": {
+    "id": 142,
+    "name": "Boom Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "143": {
+    "id": 143,
+    "name": "Rad Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "144": {
+    "id": 144,
+    "name": "Rock Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "145": {
+    "id": 145,
+    "name": "Tabby Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "146": {
+    "id": 146,
+    "name": "Hunter Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "147": {
+    "id": 147,
+    "name": "Crystal Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "148": {
+    "id": 148,
+    "name": "Glided Ginger",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "149": {
+    "id": 149,
+    "name": "Spicy Tofu",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "150": {
+    "id": 150,
+    "name": "Saber Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "151": {
+    "id": 151,
+    "name": "Pink Saber Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "152": {
+    "id": 152,
+    "name": "Saber Quantum Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "153": {
+    "id": 153,
+    "name": "Saber Honey Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "154": {
+    "id": 154,
+    "name": "Saber Phosphor Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "155": {
+    "id": 155,
+    "name": "Saber Tangle Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "156": {
+    "id": 156,
+    "name": "Saber Mosaic Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "157": {
+    "id": 157,
+    "name": "Saber Boom Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "158": {
+    "id": 158,
+    "name": "Saber Rad Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "159": {
+    "id": 159,
+    "name": "Saber Rock Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "160": {
+    "id": 160,
+    "name": "Saber Tabby Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "161": {
+    "id": 161,
+    "name": "Saber Hunter Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "162": {
+    "id": 162,
+    "name": "Saber Crystal Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "163": {
+    "id": 163,
+    "name": "Saber Dervish Largo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Largo"
+  },
+  "164": {
+    "id": 164,
+    "name": "Saber Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "165": {
+    "id": 165,
+    "name": "Kookadoba",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Food"
+  },
+  "166": {
+    "id": 166,
+    "name": "Quicksilver Slime",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Slime"
+  },
+  "167": {
+    "id": 167,
+    "name": "Quicksilver Plort",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Plort"
+  },
+  "168": {
+    "id": 168,
+    "name": "Saber Slime Mudball",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "169": {
+    "id": 169,
+    "name": "[Ancient Ruins Box]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "170": {
+    "id": 170,
+    "name": "[Wilds Box]",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Unsorted"
+  },
+  "171": {
+    "id": 171,
+    "name": "Spark Shot",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Special"
+  },
+  "172": {
+    "id": 172,
+    "name": "Thunderclap",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Special"
+  },
+  "173": {
+    "id": 173,
+    "name": "Slooow Field",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Special"
+  },
+  "174": {
+    "id": 174,
+    "name": "Static Clinger",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Special"
+  },
+  "11000": {
+    "id": 11000,
+    "name": "Primordy Oil",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11001": {
+    "id": 11001,
+    "name": "Deep Brine",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11002": {
+    "id": 11002,
+    "name": "Spiral Stream",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11003": {
+    "id": 11003,
+    "name": "Lava Dust",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11004": {
+    "id": 11004,
+    "name": "Buzz Wax",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11005": {
+    "id": 11005,
+    "name": "Wild Honey",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11006": {
+    "id": 11006,
+    "name": "Hexacomb",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11007": {
+    "id": 11007,
+    "name": "Royal Jelly",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11008": {
+    "id": 11008,
+    "name": "Jellystone",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11009": {
+    "id": 11009,
+    "name": "Indigonium",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11010": {
+    "id": 11010,
+    "name": "Slime Fossil",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11011": {
+    "id": 11011,
+    "name": "Strange Diamond",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11012": {
+    "id": 11012,
+    "name": "Red Echo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11013": {
+    "id": 11013,
+    "name": "Green Echo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11014": {
+    "id": 11014,
+    "name": "Blue Echo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11015": {
+    "id": 11015,
+    "name": "Gold Echo",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11016": {
+    "id": 11016,
+    "name": "Silky Sand",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11017": {
+    "id": 11017,
+    "name": "Pepper Jam",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11018": {
+    "id": 11018,
+    "name": "Glass Shard",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  },
+  "11019": {
+    "id": 11019,
+    "name": "Manifold Cube",
+    "image": "Assets/Sprites/missing.png",
+    "type": "Resource"
+  }
+}

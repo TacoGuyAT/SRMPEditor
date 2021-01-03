@@ -1,0 +1,20 @@
+﻿<Window x:Class="SRMPEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SRMPEditor"
+        mc:Ignorable="d"
+        Title="SRMPEditor" MinWidth="800" MinHeight="600" Width="800" Height="600" Background="#141414" Closing="Window_Closing">
+    <Grid Background="#181818">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="SRMPEditor" FontSize="120" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom"/>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <local:zButton Text="Load World" Margin="4" Width="320" Height="32" click="zButton_click"/>
+            <local:zButton Text="Convert Player" Margin="4" Width="320" Height="32" click="zButton_click_1"/>
+        </StackPanel>
+    </Grid>
+</Window>

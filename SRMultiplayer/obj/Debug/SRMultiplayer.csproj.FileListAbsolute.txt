@@ -1,0 +1,6 @@
+C:\Users\apotr\source\repos\SRMPEditor\SRMultiplayer\bin\Debug\SRMultiplayer.dll
+C:\Users\apotr\source\repos\SRMPEditor\SRMultiplayer\bin\Debug\SRMultiplayer.pdb
+C:\Users\apotr\source\repos\SRMPEditor\SRMultiplayer\obj\Debug\SRMultiplayer.csproj.CoreCompileInputs.cache
+C:\Users\apotr\source\repos\SRMPEditor\SRMultiplayer\obj\Debug\SRMultiplayer.dll
+C:\Users\apotr\source\repos\SRMPEditor\SRMultiplayer\obj\Debug\SRMultiplayer.pdb
+C:\Users\apotr\source\repos\SRMPEditor\SRMultiplayer\obj\Debug\SRMultiplayer.csprojAssemblyReference.cache
