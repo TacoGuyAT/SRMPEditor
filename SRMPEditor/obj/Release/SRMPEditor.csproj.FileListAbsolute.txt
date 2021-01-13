@@ -17,3 +17,16 @@ C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\SRMPEditor.csproj.
 C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\SRMPEditor.csproj.CopyComplete
 C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\SRMPEditor.exe
 C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\SRMPEditor.pdb
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\bin\Release\SRMultiplayer.pdb
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zButton.g.cs
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zDropList.g.cs
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zEdit.g.cs
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zList.g.cs
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zSwitch.g.cs
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\GeneratedInternalTypeHelper.g.cs
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\App.baml
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zButton.baml
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zDropList.baml
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zEdit.baml
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zList.baml
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Release\UserControls\zSwitch.baml
