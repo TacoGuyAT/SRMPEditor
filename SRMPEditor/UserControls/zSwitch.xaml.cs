@@ -55,7 +55,7 @@ namespace SRMPEditor
             timer.Stop();
             if (cl && click != null)
             {
-                setChecked(!isChecked);
+                setChecked(!isChecked, true);
                 click.Invoke(this, e);
             }
         }
@@ -269,16 +269,22 @@ namespace SRMPEditor
                 inside.Background = new SolidColorBrush(colorUnchecked);
             }
         }
-        public void setChecked(bool isCheckedNew)
+        public void setChecked(bool isCheckedNew, bool hover)
         {
             isChecked = isCheckedNew;
             if (isChecked)
             {
                 inside.BeginAnimation(MarginProperty, new ThicknessAnimation { To = new Thickness(inside.ActualWidth / 2 + inside.Margin.Top * 2, inside.Margin.Top, inside.Margin.Top, inside.Margin.Top), Duration = TimeSpan.FromSeconds(AnimationDelay) });
-                inside.Background.BeginAnimation(SolidColorBrush.ColorProperty, new ColorAnimation { To = colorCheckedHover, Duration = TimeSpan.FromSeconds(AnimationDelay) });
+                if(hover)
+                    inside.Background.BeginAnimation(SolidColorBrush.ColorProperty, new ColorAnimation { To = colorCheckedHover, Duration = TimeSpan.FromSeconds(AnimationDelay) });
+                else
+                    inside.Background.BeginAnimation(SolidColorBrush.ColorProperty, new ColorAnimation { To = colorChecked, Duration = TimeSpan.FromSeconds(AnimationDelay) });
             } else {
                 inside.BeginAnimation(MarginProperty, new ThicknessAnimation { To = new Thickness(inside.Margin.Top), Duration = TimeSpan.FromSeconds(AnimationDelay) });
-                inside.Background.BeginAnimation(SolidColorBrush.ColorProperty, new ColorAnimation { To = colorUncheckedHover, Duration = TimeSpan.FromSeconds(AnimationDelay) });
+                if (hover)
+                    inside.Background.BeginAnimation(SolidColorBrush.ColorProperty, new ColorAnimation { To = colorUncheckedHover, Duration = TimeSpan.FromSeconds(AnimationDelay) });
+                else
+                    inside.Background.BeginAnimation(SolidColorBrush.ColorProperty, new ColorAnimation { To = colorUnchecked, Duration = TimeSpan.FromSeconds(AnimationDelay) });
             }
         }
     }

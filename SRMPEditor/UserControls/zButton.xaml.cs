@@ -28,6 +28,10 @@ namespace SRMPEditor
         {
             InitializeComponent();
             border.BorderThickness = new Thickness(0);
+            if (Path != null || ImgSource != null)
+                w.Width = new GridLength(24);
+            else
+                w.Width = new GridLength(0);
             /*
             color = Color.FromRgb(224, 75, 115);
             colorHover = Color.FromRgb(248, 115, 141);
@@ -184,7 +188,35 @@ namespace SRMPEditor
         public static readonly DependencyProperty ColorClickedProperty = DependencyProperty.Register("colorClicked", typeof(Color), typeof(zButton), new PropertyMetadata(Color.FromRgb(216, 55, 85)));
         public static readonly DependencyProperty ColorDisabledProperty = DependencyProperty.Register("colorDisabled", typeof(Color), typeof(zButton), new PropertyMetadata(Color.FromRgb(38, 38, 38)));
         public static readonly DependencyProperty TextColorProperty = DependencyProperty.Register("TextColor", typeof(Color), typeof(zButton), new PropertyMetadata(Color.FromRgb(255, 255, 255)));
+        public static readonly DependencyProperty PathProperty = DependencyProperty.Register("Path", typeof(Geometry), typeof(zButton));
+        public static readonly DependencyProperty IconWidthProperty = DependencyProperty.Register("IconWidth", typeof(GridLength), typeof(zButton));
 
+        public GridLength IconWidth
+        {
+            get
+            {
+                return (GridLength)GetValue(IconWidthProperty);
+            }
+            set
+            {
+                w.Width = value;
+            }
+        }
+        public Geometry Path
+        {
+            get
+            {
+                return (Geometry)GetValue(PathProperty);
+            }
+            set
+            {
+                if (value != null)
+                    w.Width = new GridLength(24);
+                else
+                    w.Width = new GridLength(0);
+                SetValue(PathProperty, value);
+            }
+        }
         public CornerRadius Corner
         {
             get
@@ -229,7 +261,7 @@ namespace SRMPEditor
             {
                 if (value != null)
                 {
-                    w.Width = new GridLength(24);
+                    w.Width = new GridLength(this.ActualHeight);
                     img.Source = new BitmapImage(value);
                 }
                 else

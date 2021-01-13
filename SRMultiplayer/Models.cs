@@ -6,6 +6,55 @@ using System.Threading.Tasks;
 
 namespace SRMultiplayer.Models
 {
+    public enum Upgrade // Decompiled SR Code
+    {
+        // Token: 0x04003116 RID: 12566
+        HEALTH_1,
+        // Token: 0x04003117 RID: 12567
+        HEALTH_2,
+        // Token: 0x04003118 RID: 12568
+        HEALTH_3,
+        // Token: 0x04003119 RID: 12569
+        ENERGY_1,
+        // Token: 0x0400311A RID: 12570
+        ENERGY_2,
+        // Token: 0x0400311B RID: 12571
+        ENERGY_3,
+        // Token: 0x0400311C RID: 12572
+        AMMO_1,
+        // Token: 0x0400311D RID: 12573
+        AMMO_2,
+        // Token: 0x0400311E RID: 12574
+        AMMO_3,
+        // Token: 0x0400311F RID: 12575
+        JETPACK,
+        // Token: 0x04003120 RID: 12576
+        JETPACK_EFFICIENCY,
+        // Token: 0x04003121 RID: 12577
+        AIR_BURST,
+        // Token: 0x04003122 RID: 12578
+        RUN_EFFICIENCY,
+        // Token: 0x04003123 RID: 12579
+        LIQUID_SLOT,
+        // Token: 0x04003124 RID: 12580
+        AMMO_4,
+        // Token: 0x04003125 RID: 12581
+        HEALTH_4,
+        // Token: 0x04003126 RID: 12582
+        RUN_EFFICIENCY_2,
+        // Token: 0x04003127 RID: 12583
+        GOLDEN_SURESHOT,
+        // Token: 0x04003128 RID: 12584
+        SPARE_KEY,
+        // Token: 0x04003129 RID: 12585
+        TREASURE_CRACKER_1 = 100,
+        // Token: 0x0400312A RID: 12586
+        TREASURE_CRACKER_2,
+        // Token: 0x0400312B RID: 12587
+        TREASURE_CRACKER_3,
+        // Token: 0x0400312C RID: 12588
+        TREASURE_CRACKER_4
+    }
     [Serializable]
     public class NetworkPlayerModel
     {
@@ -287,6 +336,36 @@ namespace SRMultiplayer.Models
         {
 
         }
+    }
+    [Serializable]
+    public class NetworkMailModel
+    {
+        public byte type;
+        public string key;
+        public bool read;
+    }
+    [Serializable]
+    public class NetworkOffer
+    {
+        public List<NetworkRequestItemEntry> requests;
+        public List<NetworkItemEntry> rewards;
+        public double expireTime;
+        public double earlyExchangeTime;
+        public string rancherId;
+        public string offerId;
+        public byte offerType;
+    }
+    [Serializable]
+    public class NetworkRequestItemEntry : NetworkItemEntry
+    {
+        public int progress;
+    }
+    [Serializable]
+    public class NetworkItemEntry
+    {
+        public ushort id;
+        public ushort specReward;
+        public int count;
     }
     [Serializable]
     public class BlueprintLockData

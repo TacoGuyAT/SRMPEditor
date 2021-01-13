@@ -61,13 +61,13 @@ namespace SRMPEditor
         public List<NetworkTreasurePodSave> treasurepods;
 
         public Dictionary<string, Player> players;
-
-        public Dictionary<string, itemEntry> upgrades;
-        public Dictionary<string, itemEntry> upgradesByName;
         public Dictionary<string, itemEntry> items;
         public Dictionary<string, itemEntry> itemsByName;
+
+        public Geometry xShape;
         public MainWindow()
         {
+            xShape = Geometry.Parse("M 0 0 L 8 8 M 8 0 L 0 8");
             String json = new StreamReader(Application.GetResourceStream(new Uri("pack://application:,,,/Assets/Items.json")).Stream).ReadToEnd();
             items = JsonConvert.DeserializeObject<Dictionary<string, itemEntry>>(json);
 
@@ -80,6 +80,7 @@ namespace SRMPEditor
                 if(!i.Value.name.Contains("[") || i.Value.name == "[Empty]")
                     itemsByName.Add(i.Value.name, i.Value);
             }
+
 //            this.Icon = new BitmapImage(new Uri("pack://application:,,,/Assets/Sprites/Icon.png"));
             InitializeComponent();
             Console.WriteLine("Finished!");
@@ -464,7 +465,7 @@ namespace SRMPEditor
                     MessageBox.Show("Directory Players doesn't exists", "SRMPEditor");
                 }
             }
-                this.Content = createEditor();
+                this.Content = await createEditorAsync();
                 await Task.Delay(1);
                 DoubleAnimation animShow = new DoubleAnimation { From = 0, To = 1, Duration = TimeSpan.FromMilliseconds(100) };
                 ((Grid)this.Content).BeginAnimation(OpacityProperty, animShow);
@@ -565,9 +566,9 @@ namespace SRMPEditor
 
         public ScrollViewer editorArea;
 
-        public Grid createEditor()
+        public async Task<Grid> createEditorAsync()
         {
-            Grid grid = new Grid();
+            Grid grid = new Grid { Opacity = 0 };
             Grid main = new Grid { Background = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0)) };
 //            StackPanel menu;
             grid.Children.Add(main);
@@ -1049,7 +1050,7 @@ namespace SRMPEditor
             
             workspace.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             editorArea = new ScrollViewer { Background = new SolidColorBrush(Color.FromRgb(24,24,24)), Margin = new Thickness(2,0,0,0) };
-//            editorArea.Content = createWorldEditor().Result;
+            editorArea.Content = await createWorldEditor();
             Grid.SetColumn(editorArea, 1);
             workspace.Children.Add(editorArea);
             GridSplitter splitter = new GridSplitter { Width = 3, Background = new SolidColorBrush(Color.FromRgb(38, 38, 38)), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Stretch };
@@ -1061,7 +1062,7 @@ namespace SRMPEditor
             zButton worldButton = new zButton { Text = "World", Width = 64, color = Color.FromRgb(20, 20, 20), colorHover = Color.FromRgb(38, 38, 38), colorClicked = Color.FromRgb(20, 20, 20), Corner = new CornerRadius(0) };
             worldButton.click += (s1, e1) =>
             {
-                ContextMenu menu = new ContextMenu();
+                ContextMenu menu = new ContextMenu { FontFamily = new FontFamily("Bahnschrift"), FontWeight = FontWeights.Light };
                 MenuItem open = new MenuItem { Header = "Open World" };
                 open.Click += (s, e) =>
                 {
@@ -1372,18 +1373,82 @@ namespace SRMPEditor
             return grid;
         }
 
-        bool playerEditorLoaded;
+        bool editorLoaded;
+        bool[] filtersMem = { true, false, true, true, true, true };
 
         public async Task<Grid> createPlayerEditor(Player player, string playerName)
         {
-            playerEditorLoaded = false;
+            editorLoaded = false;
+            zSwitch enableWaterSlot = null;
             await Task.Delay(16);
             Grid grid = new Grid { Margin = new Thickness(8, 0, 0, 0) };
             StackPanel panel = new StackPanel { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
-            TextBlock title = new TextBlock { Text = playerName, FontFamily = new FontFamily("Barnschrift"), FontSize = 36, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 16, 8, 8), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
+            TextBlock title = new TextBlock { Text = playerName, FontSize = 36, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 16, 8, 8), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
             panel.Children.Add(title);
+
+            StackPanel health = new StackPanel { Orientation = Orientation.Vertical, Height = 60 };
+            TextBlock healthText = new TextBlock { Text = "Health: ", FontSize = 14, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+            zEdit healthEdit = new zEdit { Text = Math.Round(player.Model.currHealth).ToString(), Width = 192, Height = 36, Padding = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
+            healthEdit.TextChanged += (s, e) =>
+            {
+                string before = ((TextBox)s).Text;
+                ((TextBox)s).Text = Regex.Replace(((TextBox)s).Text, @"[^\d]", "");
+                if (before != ((TextBox)s).Text) ((TextBox)s).CaretIndex = ((TextBox)s).Text.Length;
+                float.TryParse(((TextBox)s).Text, out player.Model.currHealth);
+                if (player.Model.currHealth < 0)
+                {
+                    if (((TextBox)s).Text != "")
+                        ((TextBox)s).Text = "0";
+                    player.Model.currHealth = 0;
+                }
+            };
+            health.Children.Add(healthText);
+            health.Children.Add(healthEdit);
+            panel.Children.Add(health);
+
+
+            StackPanel energy = new StackPanel { Orientation = Orientation.Vertical, Height = 60 };
+            TextBlock energyText = new TextBlock { Text = "Energy: ", FontSize = 14, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+            zEdit energyEdit = new zEdit { Text = Math.Round(player.Model.currEnergy).ToString(), Width = 192, Height = 36, Padding = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
+            energyEdit.TextChanged += (s, e) =>
+            {
+                string before = ((TextBox)s).Text;
+                ((TextBox)s).Text = Regex.Replace(((TextBox)s).Text, @"[^\d]", "");
+                if (before != ((TextBox)s).Text) ((TextBox)s).CaretIndex = ((TextBox)s).Text.Length;
+                float.TryParse(((TextBox)s).Text, out player.Model.currEnergy);
+                if (player.Model.currEnergy < 0)
+                {
+                    if (((TextBox)s).Text != "")
+                        ((TextBox)s).Text = "0";
+                    player.Model.currEnergy = 0;
+                }
+            };
+            energy.Children.Add(energyText);
+            energy.Children.Add(energyEdit);
+            panel.Children.Add(energy);
+
+            StackPanel currency = new StackPanel { Orientation = Orientation.Vertical, Height = 60 };
+            TextBlock currencyText = new TextBlock { Text = "Currency: ", FontSize = 14, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+            zEdit currencyEdit = new zEdit { Text = player.Model.currency.ToString(), Width = 192, Height = 36, Padding = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
+            currencyEdit.TextChanged += (s, e) =>
+            {
+                string before = ((TextBox)s).Text;
+                ((TextBox)s).Text = Regex.Replace(((TextBox)s).Text, @"[^\d]", "");
+                if (before != ((TextBox)s).Text) ((TextBox)s).CaretIndex = ((TextBox)s).Text.Length;
+                int.TryParse(((TextBox)s).Text, out player.Model.currency);
+                if (player.Model.currency < 0)
+                {
+                    if (((TextBox)s).Text != "")
+                        ((TextBox)s).Text = "0";
+                    player.Model.currency = 0;
+                }
+            };
+            currency.Children.Add(currencyText);
+            currency.Children.Add(currencyEdit);
+            panel.Children.Add(currency);
+
             StackPanel slotsPanel = new StackPanel { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
-            TextBlock itemSlotsText = new TextBlock { Text = "Item slots", FontFamily = new FontFamily("Barnschrift"), FontSize = 22, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8), Height = 24, Width = 180, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+            TextBlock itemSlotsText = new TextBlock { Text = "Item slots", FontSize = 22, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8), Height = 24, Width = 180, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
             slotsPanel.Children.Add(itemSlotsText);
             StackPanel filterPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, -2, 0, 4) };
             TextBlock filter = new TextBlock { Text = "Filters: ", Margin = new Thickness(8, 0, 2, 0), FontSize = 16, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)) };
@@ -1392,23 +1457,29 @@ namespace SRMPEditor
             string[] itemTypes = Enum.GetNames(typeof(itemEntry.itemType));
 
             for (int j = 0; j < 6; j++) {
-                bool isChecked = true;
-                if (itemTypes[j] == "Largo") isChecked = false;
-                zSwitch sw = new zSwitch { Text = itemTypes[j], Margin = new Thickness(0, 0, 2, 0), isChecked = isChecked };
+                int currentJ = j;
+                zSwitch sw = new zSwitch { Text = itemTypes[j], Margin = new Thickness(0, 0, 2, 0), isChecked = filtersMem[j] };
                 sw.click += (s, e) =>
                 {
                     foreach(ComboBox itemSlot in slots) {
                             string prev = itemSlot.Text;
                             itemSlot.Items.Clear();
+                            itemSlot.Items.Add("[Empty]");
                         for (int k = 0; k < switches.Children.Count; k++) {
                             foreach (KeyValuePair<string, itemEntry> entry in items)
                                 if (!entry.Value.name.Contains("["))
                                         if (((zSwitch)switches.Children[k]).isChecked && entry.Value.type.ToString() == itemTypes[k])
                                             itemSlot.Items.Add(entry.Value.name);
                         }
-                        if (!itemSlot.Items.Contains(prev)) itemSlot.Items.Insert(1, prev);
+                        if (!itemSlot.Items.Contains(prev))
+//                            if(itemSlot.Items.Count != 0)
+                                itemSlot.Items.Insert(1, prev);
+//                            else
+//                                itemSlot.Items.Add(prev);
+
                         itemSlot.Text = prev;
                     }
+                    filtersMem[currentJ] = !filtersMem[currentJ];
                 };
                 switches.Children.Add(sw);
             }
@@ -1472,7 +1543,7 @@ namespace SRMPEditor
                 Grid.SetColumn(itemSlotCount, 2);
 
                 itemSlot.SelectionChanged += (s, e) => {
-                    if (e.AddedItems.Count == 0 || ((ComboBox)s).Items.Count == 0 || ((ComboBox)s).Items.Count == 1 || !playerEditorLoaded) return;
+                    if (e.AddedItems.Count == 0 || ((ComboBox)s).Items.Count == 0 || ((ComboBox)s).Items.Count == 1 || !editorLoaded) return;
 
                     if (((string)e.AddedItems[0]) == "[Empty]") {
                         player.Model.ammoDict[0].slots[currentI] = null;
@@ -1498,11 +1569,13 @@ namespace SRMPEditor
                 if (i == 4) {
                     bool defaultWS = false;
                     if (player.Model.ammoDict[0].usableSlots == 5) defaultWS = true;
-                    zSwitch enableWaterSlot = new zSwitch { Text = "Enable Water Slot", isChecked = defaultWS };
+                    enableWaterSlot = new zSwitch { Text = "Enable Liquid Slot", isChecked = defaultWS };
                     enableWaterSlot.click += (s, e) =>
                     {
-                        if (((zSwitch)s).isChecked) player.Model.ammoDict[0].usableSlots = 5;
-                        else player.Model.ammoDict[0].usableSlots = 4;
+                        if (((zSwitch)s).isChecked)
+                            player.Model.ammoDict[0].usableSlots = 5;
+                        else
+                            player.Model.ammoDict[0].usableSlots = 4;
                     };
                     Grid.SetColumn(enableWaterSlot, 4);
                     slot.Children.Add(enableWaterSlot);
@@ -1548,30 +1621,200 @@ namespace SRMPEditor
             }
 
             panel.Children.Add(slotsPanel);
+
+            if (!world.SharedUpgrades)
+            {
+                Border ubg = new Border { Background = new SolidColorBrush(Color.FromRgb(20, 20, 20)), CornerRadius = new CornerRadius(8), Margin = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0, 0, 0, 8), Width = 512, SnapsToDevicePixels = true };
+                WrapPanel upgrades = new WrapPanel { Orientation = Orientation.Horizontal };
+                ubg.Child = upgrades;
+                upgradeElementsList = new Dictionary<string, Border>();
+                addUpgrade = new ComboBox { Height = 24, Margin = new Thickness(8, 8, 0, 0), Width = 18 };
+                addUpgrade.DropDownOpened += (s, e) =>
+                {
+                    if (((ComboBox)s).Items.Count == 0)
+                        addUpgrade.IsDropDownOpen = false;
+                };
+                addUpgrade.SelectionChanged += (s, e) =>
+                {
+                    if (e.AddedItems.Count == 0 || ((ComboBox)s).Items.Count == 0 || !editorLoaded) 
+                        return;
+                    ((ComboBox)s).Items.Remove(e.AddedItems[0]);
+                    upgradeElementsList[(string)e.AddedItems[0]].Visibility = Visibility.Visible;
+                    player.Model.upgrades.Add(Convert.ToByte((int)Enum.Parse(typeof(Upgrade), ((string)e.AddedItems[0]))));
+                    addUpgrade.Items.Clear();
+                    foreach (Upgrade u1 in Enum.GetValues(typeof(Upgrade)))
+                    {
+                        if (!player.Model.upgrades.Contains(Convert.ToByte((int)u1)))
+                            addUpgrade.Items.Add(u1.ToString());
+                    }
+                    if (((string)e.AddedItems[0]).Equals(Upgrade.LIQUID_SLOT.ToString()) && enableWaterSlot != null)
+                    {
+                        enableWaterSlot.setChecked(true, false);
+                        player.Model.ammoDict[0].usableSlots = 5;
+                    }
+                };
+                foreach (Upgrade u in Enum.GetValues(typeof(Upgrade)))
+                {
+                    Border bg = new Border { Background = new SolidColorBrush(Color.FromRgb(24, 24, 24)), CornerRadius = new CornerRadius(8), Margin = new Thickness(8, 8, 0, 0), Height = 24, Visibility = Visibility.Collapsed, VerticalAlignment = VerticalAlignment.Top, HorizontalAlignment = HorizontalAlignment.Left, SnapsToDevicePixels = true };
+                    Grid g = new Grid();
+                    bg.Child = g;
+                    g.ColumnDefinitions.Add(new ColumnDefinition());
+                    g.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(24) });
+                    TextBlock text = new TextBlock { Text = u.ToString(), Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(8, 0, 4, 0) };
+                    if (!player.Model.upgrades.Contains(Convert.ToByte((int)u)))
+                        addUpgrade.Items.Add(u.ToString());
+                    else
+                        bg.Visibility = Visibility.Visible;
+                    zButton remove = new zButton { Text = "", Width = 16, Height = 16, Path = xShape, IconWidth = new GridLength(16), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Corner = new CornerRadius(8), colorClicked = Color.FromRgb(20, 20, 20), color = Color.FromRgb(24, 24, 24), colorHover = Color.FromRgb(36, 36, 36) };
+                    remove.click += (s, e) =>
+                    {
+                        bg.Visibility = Visibility.Collapsed;
+                        player.Model.upgrades.Remove(Convert.ToByte((int)u));
+                        addUpgrade.Items.Clear();
+                        foreach (Upgrade u1 in Enum.GetValues(typeof(Upgrade)))
+                        {
+                            if (!player.Model.upgrades.Contains(Convert.ToByte((int)u1)))
+                                addUpgrade.Items.Add(u1.ToString());
+                        }
+                        if (u.ToString().Equals(Upgrade.LIQUID_SLOT.ToString()) && enableWaterSlot != null)
+                        {
+                            enableWaterSlot.setChecked(false, false);
+                            player.Model.ammoDict[0].usableSlots = 4;
+                        }
+                    };
+                    Grid.SetColumn(remove, 1);
+                    g.Children.Add(text);
+                    g.Children.Add(remove);
+                    upgradeElementsList.Add(u.ToString(), bg);
+                    upgrades.Children.Add(bg);
+                }
+                upgrades.Children.Add(addUpgrade);
+
+                panel.Children.Add(ubg);
+            }
             grid.Children.Add(panel);
-            playerEditorLoaded = true;
+            editorLoaded = true;
             return grid;
         }
+        public ComboBox addUpgrade;
+        public Dictionary<string, Border> upgradeElementsList = new Dictionary<string, Border>();
         public async Task<Grid> createWorldEditor()
         {
+            editorLoaded = false;
             await Task.Delay(16);
             Grid grid = new Grid { Margin = new Thickness(8, 0, 0, 0) };
             StackPanel panel = new StackPanel { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
-            TextBlock title = new TextBlock { Text = "World settings and variables", FontFamily = new FontFamily("Barnschrift"), FontSize = 36, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
+            TextBlock title = new TextBlock { Text = "World settings", FontSize = 36, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 16, 8, 8), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
             panel.Children.Add(title);
+            zEdit currency = new zEdit { Width = 192, Height = 24, Text = world.TotalCurrency.ToString(), Margin = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
             zSwitch isSharedCurrency = new zSwitch { Text = "Shared Currency", Margin = new Thickness(8, 8, 8, 4), isChecked = world.SharedCurrency };
+            if (world.SharedCurrency)
+                currency.Visibility = Visibility.Visible;
+            else
+                currency.Visibility = Visibility.Collapsed;
             isSharedCurrency.click += (s, e) =>
             {
                 world.SharedCurrency = ((zSwitch)s).isChecked;
+                if (world.SharedCurrency)
+                    currency.Visibility = Visibility.Visible;
+                else
+                    currency.Visibility = Visibility.Collapsed;
+            };
+            currency.TextChanged += (s, e) =>
+            {
+                string before = ((TextBox)s).Text;
+                ((TextBox)s).Text = Regex.Replace(((TextBox)s).Text, @"[^\d]", "");
+                if (before != ((TextBox)s).Text) ((TextBox)s).CaretIndex = ((TextBox)s).Text.Length;
+                    int.TryParse(((TextBox)s).Text, out world.TotalCurrency);
+                if (world.TotalCurrency < 0)
+                {
+                    if(((TextBox)s).Text != "")
+                        ((TextBox)s).Text = "0";
+                    world.TotalCurrency = 0;
+                }
             };
             panel.Children.Add(isSharedCurrency);
+            panel.Children.Add(currency);
+            Border ubg = new Border { Background = new SolidColorBrush(Color.FromRgb(20, 20, 20)), CornerRadius = new CornerRadius(8), Margin = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0, 0, 0, 8), Width = 512, SnapsToDevicePixels = true };
+            WrapPanel upgrades = new WrapPanel { Orientation = Orientation.Horizontal };
+            ubg.Child = upgrades;
+            upgradeElementsList = new Dictionary<string, Border>();
+            addUpgrade = new ComboBox { Height = 24, Margin = new Thickness(8, 8, 0, 0), Width = 18 };
+            addUpgrade.DropDownOpened += (s, e) =>
+            {
+                if (((ComboBox)s).Items.Count == 0)
+                    addUpgrade.IsDropDownOpen = false;
+            };
+            addUpgrade.SelectionChanged += (s, e) =>
+            {
+                if (e.AddedItems.Count == 0 || ((ComboBox)s).Items.Count == 0 || !editorLoaded)
+                    return;
+                ((ComboBox)s).Items.Remove(e.AddedItems[0]);
+                upgradeElementsList[(string)e.AddedItems[0]].Visibility = Visibility.Visible;
+                world.AllUpgrades.Add(Convert.ToByte((int)Enum.Parse(typeof(Upgrade), ((string)e.AddedItems[0]))));
+                addUpgrade.Items.Clear();
+                foreach (Upgrade u1 in Enum.GetValues(typeof(Upgrade)))
+                {
+                    if (!world.AllUpgrades.Contains(Convert.ToByte((int)u1)))
+                        addUpgrade.Items.Add(u1.ToString());
+                }
+
+                if (((string)e.AddedItems[0]).Equals(Upgrade.LIQUID_SLOT.ToString()))
+                    foreach( Player player in players.Values )
+                        player.Model.ammoDict[0].usableSlots = 5;
+            };
+            foreach (Upgrade u in Enum.GetValues(typeof(Upgrade)))
+            {
+                Border bg = new Border { Background = new SolidColorBrush(Color.FromRgb(24, 24, 24)), CornerRadius = new CornerRadius(8), Margin = new Thickness(8, 8, 0, 0), Height = 24, Visibility = Visibility.Collapsed, VerticalAlignment = VerticalAlignment.Top, HorizontalAlignment = HorizontalAlignment.Left, SnapsToDevicePixels = true };
+                Grid g = new Grid();
+                bg.Child = g;
+                g.ColumnDefinitions.Add(new ColumnDefinition());
+                g.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(24) });
+                TextBlock text = new TextBlock { Text = u.ToString(), Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(8, 0, 4, 0) };
+                if (!world.AllUpgrades.Contains(Convert.ToByte((int)u)))
+                    addUpgrade.Items.Add(u.ToString());
+                else
+                    bg.Visibility = Visibility.Visible;
+                zButton remove = new zButton { Text = "", Width = 16, Height = 16, Path = xShape, IconWidth = new GridLength(16), HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, Corner = new CornerRadius(8), colorClicked = Color.FromRgb(20, 20, 20), color = Color.FromRgb(24, 24, 24), colorHover = Color.FromRgb(36, 36, 36) };
+                remove.click += (s, e) =>
+                {
+                    bg.Visibility = Visibility.Collapsed;
+                    world.AllUpgrades.Remove(Convert.ToByte((int)u));
+                    addUpgrade.Items.Clear();
+                    foreach (Upgrade u1 in Enum.GetValues(typeof(Upgrade)))
+                    {
+                        if (!world.AllUpgrades.Contains(Convert.ToByte((int)u1)))
+                            addUpgrade.Items.Add(u1.ToString());
+                    }
+                    if (u.ToString().Equals(Upgrade.LIQUID_SLOT.ToString()))
+                        foreach (Player player in players.Values)
+                            player.Model.ammoDict[0].usableSlots = 4;
+                };
+                Grid.SetColumn(remove, 1);
+                g.Children.Add(text);
+                g.Children.Add(remove);
+                upgradeElementsList.Add(u.ToString(), bg);
+                upgrades.Children.Add(bg);
+            }
+            upgrades.Children.Add(addUpgrade);
+
+            if (world.SharedUpgrades)
+                ubg.Visibility = Visibility.Visible;
+            else
+                ubg.Visibility = Visibility.Collapsed;
             zSwitch isSharedUpgrades = new zSwitch { Text = "Shared Upgrades", Margin = new Thickness(8, 8, 8, 4), isChecked = world.SharedUpgrades };
             isSharedUpgrades.click += (s, e) =>
             {
                 world.SharedUpgrades = ((zSwitch)s).isChecked;
+                if(world.SharedUpgrades)
+                    ubg.Visibility = Visibility.Visible;
+                else
+                    ubg.Visibility = Visibility.Collapsed;
             };
             panel.Children.Add(isSharedUpgrades);
+            panel.Children.Add(ubg);
             grid.Children.Add(panel);
+            editorLoaded = true;
             return grid;
         }
     }

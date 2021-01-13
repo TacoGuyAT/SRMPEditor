@@ -33,8 +33,12 @@ namespace SRMPEditor
         public float Seed;
         public bool SharedCurrency;
         public bool SharedUpgrades;
-
         public NetworkGadgetsModel GadgetsModel = new NetworkGadgetsModel();
+        public int TotalCurrency;
+        public List<byte> AllUpgrades = new List<byte>();
+        public List<NetworkMailModel> AllMail = new List<NetworkMailModel>();
+        public List<NetworkOffer> Offers = new List<NetworkOffer>();
+
     }
    
 }

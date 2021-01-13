@@ -6,19 +6,21 @@
              xmlns:local="clr-namespace:SRMPEditor"
              mc:Ignorable="d"
              d:DesignHeight="32" d:DesignWidth="128">
-    <Grid x:Name="g" SnapsToDevicePixels="true">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0" x:Name="w"/>
-            <ColumnDefinition x:Name="w1"/>
-        </Grid.ColumnDefinitions>
+    <Grid>
         <Border x:Name="border" BorderBrush="Black" BorderThickness="1" CornerRadius="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type local:zButton}},Path=Corner}" Grid.ColumnSpan="2049158">
             <Border.Background>
                 <SolidColorBrush Color="#777777" x:Name="bg"/>
             </Border.Background>
         </Border>
-        <Image Margin="4,4" x:Name="img"/>
-        <Path Margin="4,4" x:Name="path"/>
-        <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type local:zButton}},Path=Text}" FontSize="15" FontFamily="Bahnschrift" FontWeight="Thin"  Foreground="#FFFFFF" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="tx"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0" x:Name="w"/>
+                <ColumnDefinition x:Name="w1"/>
+            </Grid.ColumnDefinitions>
+            <Image Margin="4,4" x:Name="img"/>
+            <Path x:Name="uipath" Data="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type local:zButton}},Path=Path}" Fill="White" Stroke="White" StrokeThickness="1.5" SnapsToDevicePixels="true" UseLayoutRounding="true" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type local:zButton}},Path=Text}" FontSize="15" FontFamily="Bahnschrift" FontWeight="Thin"  Foreground="#FFFFFF" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="tx"/>
+        </Grid>
         <Rectangle Fill="#ff000000" Opacity="0.01" x:Name="rect" Grid.ColumnSpan="1048576"/>
     </Grid>
 </UserControl>
