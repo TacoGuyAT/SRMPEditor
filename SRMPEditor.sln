@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRMPEditor", "SRMPEditor\SR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRMultiplayer", "SRMultiplayer\SRMultiplayer.csproj", "{9B7005DA-3999-47D9-8027-4624C3A2FE68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitUpdater", "GitUpdater\GitUpdater.csproj", "{866877AF-CC35-4465-AC3C-00FC03B29EE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9B7005DA-3999-47D9-8027-4624C3A2FE68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B7005DA-3999-47D9-8027-4624C3A2FE68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B7005DA-3999-47D9-8027-4624C3A2FE68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{866877AF-CC35-4465-AC3C-00FC03B29EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{866877AF-CC35-4465-AC3C-00FC03B29EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{866877AF-CC35-4465-AC3C-00FC03B29EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{866877AF-CC35-4465-AC3C-00FC03B29EE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

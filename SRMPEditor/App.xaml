@@ -5,6 +5,21 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#E04B73"/>
+            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#77E04B73"/>
+
+            <Style TargetType="{x:Type Hyperlink}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Foreground" Value="#E04B73"/>
+                <Setter Property="TextBlock.TextDecorations" Value="{x:Null}" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Foreground" Value="#F8738D" />
+                        <Setter Property="TextBlock.TextDecorations" Value="Underline"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
             <Style TargetType="{x:Type ContextMenu}">
                 <Setter Property="SnapsToDevicePixels" Value="True"/>
                 <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -133,13 +148,51 @@
                                 <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
                                     <Border CornerRadius="0,0,2.5,2.5">
                                         <Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}" Background="#141414">
-                                                <ScrollViewer SnapsToDevicePixels="True">
-                                                    <StackPanel IsItemsHost="True"/>
-                                                </ScrollViewer>
+                                            <ScrollViewer SnapsToDevicePixels="True">
+                                                <StackPanel IsItemsHost="True"/>
+                                            </ScrollViewer>
                                         </Grid>
                                     </Border>
                                 </Popup>
                             </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type ComboBoxItem}">
+                <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+                <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                            <Border Name="Border" SnapsToDevicePixels="True" Padding="3,2,2,2" Margin="1,2,1,2" BorderThickness="1" BorderBrush="Transparent">
+                                <ContentPresenter ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" Content="{TemplateBinding ContentControl.Content}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="ComboBoxItem.IsHighlighted" Value="True">
+                                    <Setter Property="Panel.Background" TargetName="Border" Value="#77E04B73"/>
+                                    <Setter Property="BorderBrush" TargetName="Border" Value="#E04B73"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="{x:Type MenuItem}">
+                <Setter Property="UIElement.SnapsToDevicePixels" Value="True"/>
+                <Setter Property="FrameworkElement.FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type MenuItem}">
+                            <Border x:Name="Border" Margin="1,2,1,2" BorderThickness="1" BorderBrush="Transparent" Padding="23,2,22,2" SnapsToDevicePixels="True">
+                                <ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Header}" Grid.Column="1" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="true"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="MenuItem.IsHighlighted" Value="True">
+                                    <Setter Property="Panel.Background" TargetName="Border" Value="#77E04B73"/>
+                                    <Setter Property="BorderBrush" TargetName="Border" Value="#E04B73"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>

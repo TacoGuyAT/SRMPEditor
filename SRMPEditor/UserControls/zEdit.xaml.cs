@@ -25,7 +25,8 @@ namespace SRMPEditor
             InitializeComponent();
             SetValue(StringsCountProperty, tx.Text.IndexOf('\r') + (tx.Text.Length != 0 ? 1 : 0));
             tx.AcceptsReturn = (bool)GetValue(Multi_Property);
-            if ((bool)GetValue(Multi_Property))
+            tx.SelectionBrush = (SolidColorBrush)GetValue(SelectionColorProperty);
+                if ((bool)GetValue(Multi_Property))
                 tx.TextWrapping = TextWrapping.Wrap;
             else
                 tx.TextWrapping = TextWrapping.NoWrap;
@@ -36,6 +37,7 @@ namespace SRMPEditor
 
 
         public static readonly DependencyProperty StringsCountProperty = DependencyProperty.Register("StringsCount", typeof(int), typeof(zEdit), new PropertyMetadata(0));
+        public static readonly DependencyProperty SelectionColorProperty = DependencyProperty.Register("SelectionColor", typeof(SolidColorBrush), typeof(zEdit), new PropertyMetadata(new SolidColorBrush(Color.FromRgb(216, 55, 85))));
         public static readonly DependencyProperty Multi_Property = DependencyProperty.Register("MultiProperty", typeof(bool), typeof(zEdit), new PropertyMetadata(false));
 
         public string Text
@@ -48,6 +50,18 @@ namespace SRMPEditor
             {
                 if(tx.Text != value)
                     tx.Text = value;
+            }
+        }
+        public SolidColorBrush SelectionColor
+        {
+            get
+            {
+                return (SolidColorBrush)GetValue(SelectionColorProperty);
+            }
+            set
+            {
+                tx.SelectionBrush = value;
+                SetValue(SelectionColorProperty, value);
             }
         }
         public bool Multi_

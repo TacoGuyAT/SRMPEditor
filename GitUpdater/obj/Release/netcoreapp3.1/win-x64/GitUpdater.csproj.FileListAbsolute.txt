@@ -1,0 +1,15 @@
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\bin\Release\netcoreapp3.1\win-x64\GitUpdater.exe
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\bin\Release\netcoreapp3.1\win-x64\GitUpdater.deps.json
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\bin\Release\netcoreapp3.1\win-x64\GitUpdater.runtimeconfig.json
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\bin\Release\netcoreapp3.1\win-x64\GitUpdater.runtimeconfig.dev.json
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\bin\Release\netcoreapp3.1\win-x64\GitUpdater.dll
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\bin\Release\netcoreapp3.1\win-x64\GitUpdater.pdb
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\bin\Release\netcoreapp3.1\win-x64\Newtonsoft.Json.dll
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\obj\Release\netcoreapp3.1\win-x64\GitUpdater.AssemblyInfoInputs.cache
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\obj\Release\netcoreapp3.1\win-x64\GitUpdater.AssemblyInfo.cs
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\obj\Release\netcoreapp3.1\win-x64\GitUpdater.csproj.CoreCompileInputs.cache
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\obj\Release\netcoreapp3.1\win-x64\GitUpdater.csproj.CopyComplete
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\obj\Release\netcoreapp3.1\win-x64\GitUpdater.dll
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\obj\Release\netcoreapp3.1\win-x64\GitUpdater.pdb
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\obj\Release\netcoreapp3.1\win-x64\GitUpdater.genruntimeconfig.cache
+C:\Users\apotr\source\repos\SRMPEditor\GitUpdater\obj\release\netcoreapp3.1\win-x64\GitUpdater.csprojAssemblyReference.cache

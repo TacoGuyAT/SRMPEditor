@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "a1PSmcsuJLqRXyrJye53+N55hfpY6AUFzTqDy+1Ul6mILVpMsAYOPBK2vhduSD8YYP44XVNvFLusnj5fVdH+EQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\apotr\\source\\repos\\SRMPEditor\\GitUpdater\\GitUpdater.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\apotr\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\apotr\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\3.1.6\\microsoft.windowsdesktop.app.runtime.win-x64.3.1.6.nupkg.sha512",
+    "C:\\Users\\apotr\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\3.1.6\\microsoft.netcore.app.runtime.win-x64.3.1.6.nupkg.sha512",
+    "C:\\Users\\apotr\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\3.1.6\\microsoft.aspnetcore.app.runtime.win-x64.3.1.6.nupkg.sha512"
+  ],
+  "logs": []
+}

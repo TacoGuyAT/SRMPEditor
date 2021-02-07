@@ -22,7 +22,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using SRMultiplayer.Server;
 using SRMultiplayer.Models;
+using SRMultiplayer;
 
 namespace SRMPEditor
 {
@@ -67,6 +69,7 @@ namespace SRMPEditor
         public Geometry xShape;
         public MainWindow()
         {
+            if (Process.GetProcessesByName("SRMPEditor").Length != 1) { MessageBox.Show("Can't run multiple SRMPEditors at the same time", "SRMPEditor"); Environment.Exit(0); }
             xShape = Geometry.Parse("M 0 0 L 8 8 M 8 0 L 0 8");
             String json = new StreamReader(Application.GetResourceStream(new Uri("pack://application:,,,/Assets/Items.json")).Stream).ReadToEnd();
             items = JsonConvert.DeserializeObject<Dictionary<string, itemEntry>>(json);
@@ -110,10 +113,10 @@ namespace SRMPEditor
                         foreach (string p in paths)
                             players.Add(System.IO.Path.GetFileNameWithoutExtension(p), LoadPlayer(p));
                     else
-                        MessageBox.Show("There's no players in your save file");
+                        MessageBox.Show("There's no players in your save file", "SRMPEditor");
                 }
                 else
-                    MessageBox.Show("Directory Players doesn't exists");
+                    MessageBox.Show("Directory Players doesn't exists", "SRMPEditor");
 
                 using (FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
                 {
@@ -474,18 +477,24 @@ namespace SRMPEditor
         {
             Player player = new Player();
             if(System.IO.Path.GetExtension(filename).ToLower() == ".dat") {
-                using (FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
+                try
                 {
-                    IFormatter formatter = new BinaryFormatter();
-                    using (BinaryReader reader = new BinaryReader(stream))
+                    using (FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
                     {
-                        var pos = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
-                        player.x = pos.x;
-                        player.y = pos.y;
-                        player.z = pos.z;
-                        player.r = reader.ReadSingle();
-                        player.Model = (NetworkPlayerModel)formatter.Deserialize(stream);
+                        IFormatter formatter = new BinaryFormatter();
+                        using (BinaryReader reader = new BinaryReader(stream))
+                        {
+                            var pos = new Vector3(reader.ReadSingle(), reader.ReadSingle(), reader.ReadSingle());
+                            player.x = pos.x;
+                            player.y = pos.y;
+                            player.z = pos.z;
+                            player.r = reader.ReadSingle();
+                            player.Model = (NetworkPlayerModel)formatter.Deserialize(stream);
+                        }
                     }
+                } catch(Exception e)
+                {
+                    return null;
                 }
             } else
                 player = JsonConvert.DeserializeObject<Player>(File.ReadAllText(filename));
@@ -509,7 +518,7 @@ namespace SRMPEditor
             if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
             {
 //                MessageBox.Show(items[new Random().Next(-1, items.Values.Count - 2).ToString()].name);
-                MessageBox.Show(items[Math.Round(((DateTime.Today.Day * DateTime.Today.Month * DateTime.Today.Year * Math.PI) % (items.Values.Count + 1) - 2)).ToString()].name, "Item of the day");
+                MessageBox.Show(items[Math.Round((DateTime.Today.Day * DateTime.Today.Month * DateTime.Today.Year * Math.PI) % (items.Values.Count + 1) - 2).ToString()].name, "Item of the day");
                 return;
             }
             OpenFileDialog fd = new OpenFileDialog { Filter = "SRMP World Data (*.json)|*.json|Old SRMP World Data (*.dat)|*.dat", DefaultExt = ".json", RestoreDirectory = true, Title = "Load SRMP World" };
@@ -533,6 +542,11 @@ namespace SRMPEditor
             if (result == true)
             {
                 Player convertedPlayer = LoadPlayer(fd.FileName);
+                if (convertedPlayer == null)
+                {
+                    MessageBox.Show("File can't be loaded. Player data may be corrupted.", "SRMPEditor");
+                    return;
+                }
                 SaveFileDialog sd = new SaveFileDialog { DefaultExt = ".json", Filter = "New SRMP Player Data (*.json)|*.json", RestoreDirectory = true, Title = "Save Converted SRMP Player", FileName = System.IO.Path.GetFileNameWithoutExtension(fd.FileName) + ".json" };
                 Nullable<bool> dResult = sd.ShowDialog();
                 if (dResult == true)
@@ -546,7 +560,7 @@ namespace SRMPEditor
             SaveFileDialog sd = new SaveFileDialog { DefaultExt = ".json", Filter = "SRMP World Data (*.json)|*.json", RestoreDirectory = true, Title = "Save SRMP World (Multiple files)", FileName = "world.json" };
             Nullable<bool> result = sd.ShowDialog();
             if (result == true) {
-            string path = System.IO.Path.GetDirectoryName(sd.FileName);
+                string path = System.IO.Path.GetDirectoryName(sd.FileName);
                 File.WriteAllText(path + "\\world.json", JsonConvert.SerializeObject(world));
                 File.WriteAllText(path + "\\accessdoors.json", JsonConvert.SerializeObject(accessdoors));
                 File.WriteAllText(path + "\\entities.json", JsonConvert.SerializeObject(entities));
@@ -557,7 +571,17 @@ namespace SRMPEditor
                 File.WriteAllText(path + "\\spawnresources.json", JsonConvert.SerializeObject(spawnresources));
                 File.WriteAllText(path + "\\switches.json", JsonConvert.SerializeObject(switches));
                 File.WriteAllText(path + "\\treasurepods.json", JsonConvert.SerializeObject(treasurepods));
-                if (!Directory.Exists(path + "\\Players")) Directory.CreateDirectory(path + "\\Players");
+                if (Directory.Exists(path + "\\Players") && Directory.GetFiles(path + "\\Players").Length != 0)
+                {
+                    if (Directory.Exists(path + "\\PlayersOld"))
+                        try {
+                            Directory.Delete(path + "\\PlayersOld", true);
+                        } catch (Exception e) { }
+                        finally {
+                            Directory.Move(path + "\\Players", path + "\\PlayersOld");
+                        }
+                Directory.CreateDirectory(path + "\\Players");
+                }
                 foreach (KeyValuePair<string, Player> p in players)
                     File.WriteAllText(path + "\\Players\\" + p.Key + ".json", JsonConvert.SerializeObject(p.Value));
             } else
@@ -1060,11 +1084,11 @@ namespace SRMPEditor
             StackPanel dockPanel = new StackPanel { Orientation = Orientation.Horizontal, Background = new SolidColorBrush(Color.FromRgb(20, 20, 20)) };
             main.Children.Add(dockPanel);
             zButton worldButton = new zButton { Text = "World", Width = 64, color = Color.FromRgb(20, 20, 20), colorHover = Color.FromRgb(38, 38, 38), colorClicked = Color.FromRgb(20, 20, 20), Corner = new CornerRadius(0) };
-            worldButton.click += (s1, e1) =>
+            worldButton.click += (s, e) =>
             {
                 ContextMenu menu = new ContextMenu { FontFamily = new FontFamily("Bahnschrift"), FontWeight = FontWeights.Light };
                 MenuItem open = new MenuItem { Header = "Open World" };
-                open.Click += (s, e) =>
+                open.Click += (s1, e1) =>
                 {
                     OpenFileDialog fd = new OpenFileDialog { Filter = "SRMP World Data (*.json)|*.json|Old SRMP World Data (*.dat)|*.dat", DefaultExt = ".json", RestoreDirectory = true, Title = "Load SRMP World" };
                     Nullable<bool> result = fd.ShowDialog();
@@ -1081,7 +1105,7 @@ namespace SRMPEditor
                     }
                 };
                 MenuItem saveMenuItem = new MenuItem { Header = "Save World" };
-                saveMenuItem.Click += (s, e) =>
+                saveMenuItem.Click += (s1, e1) =>
                 {
                     save();
                 };
@@ -1094,11 +1118,11 @@ namespace SRMPEditor
                 menu.IsOpen = true;
             };
             zButton playersButton = new zButton { Text = "Players", Width = 64, color = Color.FromRgb(20, 20, 20), colorHover = Color.FromRgb(38, 38, 38), colorClicked = Color.FromRgb(20, 20, 20), Corner = new CornerRadius(0) };
-            playersButton.click += (s1, e1) =>
+            playersButton.click += (s, e) =>
             {
                 ContextMenu menu = new ContextMenu();
                 MenuItem add = new MenuItem { Header = "Add Player" };
-                add.Click += (s, e) =>
+                add.Click += (s1, e1) =>
                 {
                     OpenFileDialog fd = new OpenFileDialog { Filter = "SRMP Player Data (*.json)|*.json|Old SRMP Player Data (*.dat)|*.dat", DefaultExt = ".dat", RestoreDirectory = true, Title = "Add SRMP Player" };
                     Nullable<bool> result = fd.ShowDialog();
@@ -1215,7 +1239,7 @@ namespace SRMPEditor
                     }
                 };
                 MenuItem create = new MenuItem { Header = "Create Player" };
-                create.Click += (s, e) =>
+                create.Click += (s1, e1) =>
                 {
                     Window dialog = new Window { Width = 320, Height = 200, Title = "Create a New Player", ResizeMode = ResizeMode.NoResize, Left = SystemParameters.PrimaryScreenWidth / 2 - 160, Top = SystemParameters.PrimaryScreenHeight / 2 - 100 };
                     Grid dialogContent = new Grid { Background = new SolidColorBrush(Color.FromRgb(24, 24, 24)) };
@@ -1367,8 +1391,67 @@ namespace SRMPEditor
                 menu.BorderThickness = new Thickness(0);
                 menu.IsOpen = true;
             };
+            zButton aboutButton = new zButton { Text = "About", Width = 64, color = Color.FromRgb(20, 20, 20), colorHover = Color.FromRgb(38, 38, 38), colorClicked = Color.FromRgb(20, 20, 20), Corner = new CornerRadius(0) };
+            aboutButton.click += (s, e) =>
+            {
+                ContextMenu menu = new ContextMenu { FontFamily = new FontFamily("Bahnschrift"), FontWeight = FontWeights.Light };
+                MenuItem about = new MenuItem { Header = "About" };
+                about.Click += (s1, e1) =>
+                {
+                    Window dialog = new Window { Width = 560, Height = 280, Title = "About SRMPEditor", ResizeMode = ResizeMode.NoResize, Left = SystemParameters.PrimaryScreenWidth / 2 - 280, Top = SystemParameters.PrimaryScreenHeight / 2 - 140 };
+                    Grid dialogContent = new Grid { Background = new SolidColorBrush(Color.FromRgb(24, 24, 24)) };
+                    dialog.Content = dialogContent;
+                    dialogContent.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0.85, GridUnitType.Star) });
+                    dialogContent.RowDefinitions.Add(new RowDefinition { Height = new GridLength(0.25, GridUnitType.Star) });
+                    TextBlock text = new TextBlock { FontWeight = FontWeights.Light, FontSize = 22, Margin = new Thickness(16), Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+                    text.Inlines.Add("SRMPEditor is a small tool to edit SRMP world save files.\nYou can find the source code at:\n");
+                    Hyperlink link1 = new Hyperlink();
+                    link1.Click += (s2, e2) => {
+                        Process.Start("https://github.com/TacoGuyAT/SRMPEditor");
+                    };
+                    link1.Inlines.Add("https://github.com/TacoGuyAT/SRMPEditor");
+                    text.Inlines.Add(link1);
+                    text.Inlines.Add(".\nSaty's Discord server (Download SRMP):\n");
+                    Hyperlink link2 = new Hyperlink();
+                    link2.Click += (s2, e2) => {
+                        Process.Start("https://discord.gg/NtB7baV");
+                    };
+                    link2.Inlines.Add("https://discord.gg/NtB7baV");
+                    text.Inlines.Add(link2);
+                    text.Inlines.Add(".");
+                    dialogContent.Children.Add(text);
+                    zButton cancel = new zButton { Text = "Close", Width = 72, Height = 24, Margin = new Thickness(16), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Center };
+                    cancel.click += (s2, e2) =>
+                    {
+                        dialog.Close();
+                    };
+                    Grid.SetRow(cancel, 1);
+                    dialogContent.Children.Add(cancel);
+                    dialog.Show();
+                };
+                MenuItem update = new MenuItem { Header = "Check for updates" };
+                update.Click += (s1, e1) =>
+                {
+                    if (File.Exists("GitUpdater.exe"))
+                        Process.Start("GitUpdater.exe");
+                    else
+                    {
+                        MessageBox.Show("Couldn't find the updater", "SRMPEditor");
+                        Process.Start("https://github.com/TacoGuyAT/SRMPEditor/releases/latest");
+                    }
+                };
+                menu.Items.Add(about);
+                menu.Items.Add(update);
+                menu.PlacementTarget = aboutButton;
+                menu.Background = new SolidColorBrush(Color.FromRgb(20, 20, 20));
+                menu.Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+                menu.BorderThickness = new Thickness(0);
+                menu.IsOpen = true;
+            };
+
             dockPanel.Children.Add(worldButton);
             dockPanel.Children.Add(playersButton);
+            dockPanel.Children.Add(aboutButton);
 
             return grid;
         }
@@ -1387,7 +1470,7 @@ namespace SRMPEditor
             panel.Children.Add(title);
 
             StackPanel health = new StackPanel { Orientation = Orientation.Vertical, Height = 60 };
-            TextBlock healthText = new TextBlock { Text = "Health: ", FontSize = 14, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+            TextBlock healthText = new TextBlock { Text = "Health: ", FontSize = 16, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
             zEdit healthEdit = new zEdit { Text = Math.Round(player.Model.currHealth).ToString(), Width = 192, Height = 36, Padding = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
             healthEdit.TextChanged += (s, e) =>
             {
@@ -1408,7 +1491,7 @@ namespace SRMPEditor
 
 
             StackPanel energy = new StackPanel { Orientation = Orientation.Vertical, Height = 60 };
-            TextBlock energyText = new TextBlock { Text = "Energy: ", FontSize = 14, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+            TextBlock energyText = new TextBlock { Text = "Energy: ", FontSize = 16, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
             zEdit energyEdit = new zEdit { Text = Math.Round(player.Model.currEnergy).ToString(), Width = 192, Height = 36, Padding = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
             energyEdit.TextChanged += (s, e) =>
             {
@@ -1427,30 +1510,33 @@ namespace SRMPEditor
             energy.Children.Add(energyEdit);
             panel.Children.Add(energy);
 
-            StackPanel currency = new StackPanel { Orientation = Orientation.Vertical, Height = 60 };
-            TextBlock currencyText = new TextBlock { Text = "Currency: ", FontSize = 14, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
-            zEdit currencyEdit = new zEdit { Text = player.Model.currency.ToString(), Width = 192, Height = 36, Padding = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
-            currencyEdit.TextChanged += (s, e) =>
+            if(!world.SharedCurrency)
             {
-                string before = ((TextBox)s).Text;
-                ((TextBox)s).Text = Regex.Replace(((TextBox)s).Text, @"[^\d]", "");
-                if (before != ((TextBox)s).Text) ((TextBox)s).CaretIndex = ((TextBox)s).Text.Length;
-                int.TryParse(((TextBox)s).Text, out player.Model.currency);
-                if (player.Model.currency < 0)
+                StackPanel currency = new StackPanel { Orientation = Orientation.Vertical, Height = 60 };
+                TextBlock currencyText = new TextBlock { Text = "Currency: ", FontSize = 16, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+                zEdit currencyEdit = new zEdit { Text = player.Model.currency.ToString(), Width = 192, Height = 36, Padding = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
+                currencyEdit.TextChanged += (s, e) =>
                 {
-                    if (((TextBox)s).Text != "")
-                        ((TextBox)s).Text = "0";
-                    player.Model.currency = 0;
-                }
-            };
-            currency.Children.Add(currencyText);
-            currency.Children.Add(currencyEdit);
-            panel.Children.Add(currency);
+                    string before = ((TextBox)s).Text;
+                    ((TextBox)s).Text = Regex.Replace(((TextBox)s).Text, @"[^\d]", "");
+                    if (before != ((TextBox)s).Text) ((TextBox)s).CaretIndex = ((TextBox)s).Text.Length;
+                    int.TryParse(((TextBox)s).Text, out player.Model.currency);
+                    if (player.Model.currency < 0)
+                    {
+                        if (((TextBox)s).Text != "")
+                            ((TextBox)s).Text = "0";
+                        player.Model.currency = 0;
+                    }
+                };
+                currency.Children.Add(currencyText);
+                currency.Children.Add(currencyEdit);
+                panel.Children.Add(currency);
+            }
 
             StackPanel slotsPanel = new StackPanel { HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
-            TextBlock itemSlotsText = new TextBlock { Text = "Item slots", FontSize = 22, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8), Height = 24, Width = 180, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
+            TextBlock itemSlotsText = new TextBlock { Text = "Item slots", FontSize = 22, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 4), Height = 32, Width = 180, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Bottom };
             slotsPanel.Children.Add(itemSlotsText);
-            StackPanel filterPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, -2, 0, 4) };
+            StackPanel filterPanel = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 2, 0, 4) };
             TextBlock filter = new TextBlock { Text = "Filters: ", Margin = new Thickness(8, 0, 2, 0), FontSize = 16, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)) };
             StackPanel switches = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = VerticalAlignment.Bottom };
             List<ComboBox> slots = new List<ComboBox>();
@@ -1477,7 +1563,7 @@ namespace SRMPEditor
 //                            else
 //                                itemSlot.Items.Add(prev);
 
-                        itemSlot.Text = prev;
+                        itemSlot.SelectedItem = prev;
                     }
                     filtersMem[currentJ] = !filtersMem[currentJ];
                 };
@@ -1616,15 +1702,17 @@ namespace SRMPEditor
                     else
                         itemSlot.Text = "[Empty]";
                 }
-                if (!itemSlot.Items.Contains(prev)) itemSlot.Items.Insert(1, prev);
-                itemSlot.Text = prev;
+                if (!itemSlot.Items.Contains(prev))
+                    itemSlot.Items.Insert(1, prev);
+                itemSlot.SelectedItem = prev;
             }
 
             panel.Children.Add(slotsPanel);
 
             if (!world.SharedUpgrades)
             {
-                Border ubg = new Border { Background = new SolidColorBrush(Color.FromRgb(20, 20, 20)), CornerRadius = new CornerRadius(8), Margin = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Padding = new Thickness(0, 0, 0, 8), Width = 512, SnapsToDevicePixels = true };
+                TextBlock upgradesText = new TextBlock { Text = "Upgrades", FontSize = 22, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 0, 8, 0), Height = 32, Width = 180, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Bottom };
+                Border ubg = new Border { Background = new SolidColorBrush(Color.FromRgb(20, 20, 20)), CornerRadius = new CornerRadius(8), Margin = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center, Padding = new Thickness(0, 0, 0, 8), Width = 512, SnapsToDevicePixels = true };
                 WrapPanel upgrades = new WrapPanel { Orientation = Orientation.Horizontal };
                 ubg.Child = upgrades;
                 upgradeElementsList = new Dictionary<string, Border>();
@@ -1690,6 +1778,7 @@ namespace SRMPEditor
                 }
                 upgrades.Children.Add(addUpgrade);
 
+                panel.Children.Add(upgradesText);
                 panel.Children.Add(ubg);
             }
             grid.Children.Add(panel);
@@ -1813,9 +1902,49 @@ namespace SRMPEditor
             };
             panel.Children.Add(isSharedUpgrades);
             panel.Children.Add(ubg);
+
+            TextBlock gamemodeText = new TextBlock { Text = "Gamemode: ", FontSize = 16, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+            ComboBox gamemode = new ComboBox { Height = 24, Width = 72, SelectedItem = world.Mode, Margin = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
+            foreach (NetworkWorld.GameMode gm in Enum.GetValues(typeof(NetworkWorld.GameMode)))
+                gamemode.Items.Add(gm);
+            gamemode.SelectionChanged += (s, e) => {
+                if (e.AddedItems.Count == 0 || ((ComboBox)s).Items.Count == 0 || ((ComboBox)s).Items.Count == 1 || !editorLoaded) return;
+                world.Mode = (NetworkWorld.GameMode)e.AddedItems[0];
+            };
+            panel.Children.Add(gamemodeText);
+            panel.Children.Add(gamemode);
+
+            TextBlock keysText = new TextBlock { Text = "Keys: ", FontSize = 16, FontWeight = FontWeights.Light, Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)), Margin = new Thickness(8, 8, 8, 0), HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Center };
+            zEdit keys = new zEdit { Width = 192, Height = 24, Text = world.Keys.ToString(), Margin = new Thickness(8, 8, 8, 4), HorizontalAlignment = HorizontalAlignment.Left };
+            keys.TextChanged += (s, e) =>
+            {
+                string before = ((TextBox)s).Text;
+                ((TextBox)s).Text = Regex.Replace(((TextBox)s).Text, @"[^\d]", "");
+                if (before != ((TextBox)s).Text) ((TextBox)s).CaretIndex = ((TextBox)s).Text.Length;
+                int.TryParse(((TextBox)s).Text, out world.Keys);
+                if (world.Keys < 0)
+                {
+                    if (((TextBox)s).Text != "")
+                        ((TextBox)s).Text = "0";
+                    world.Keys = 0;
+                }
+            };
+            panel.Children.Add(keysText);
+            panel.Children.Add(keys);
+
             grid.Children.Add(panel);
             editorLoaded = true;
             return grid;
+        }
+        private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
+        {
+            TextBlock_MouseEnterAsync((TextBlock)sender);
+        }
+        private async Task TextBlock_MouseEnterAsync(TextBlock sender)
+        {
+            await Task.Delay(10000);
+            ColorAnimation ca = new ColorAnimation { To = Color.FromRgb(105, 105, 105), Duration = TimeSpan.FromSeconds(10) };
+            sender.Foreground.BeginAnimation(SolidColorBrush.ColorProperty, ca);
         }
     }
 }

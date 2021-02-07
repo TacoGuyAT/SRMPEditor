@@ -30,3 +30,4 @@ C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Debug\UserControls\zList.b
 C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Debug\App.baml
 C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Debug\UserControls\zSwitch.g.cs
 C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Debug\UserControls\zSwitch.baml
+C:\Users\apotr\source\repos\SRMPEditor\SRMPEditor\obj\Debug\SRMPEditor_Content.g.cs

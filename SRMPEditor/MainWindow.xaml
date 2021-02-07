@@ -16,5 +16,6 @@
             <local:zButton Text="Load World" Margin="4" Width="320" Height="32" click="zButton_click"/>
             <local:zButton Text="Convert Player" Margin="4" Width="320" Height="32" click="zButton_click_1"/>
         </StackPanel>
+        <TextBlock Grid.Row="1" Text="With love from Russia &lt;3" Padding="4, 4, 8, 4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Foreground="#181818" MouseEnter="TextBlock_MouseEnter"/>
     </Grid>
 </Window>

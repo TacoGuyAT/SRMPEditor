@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SRMultiplayer.Models;
 
-namespace SRMPEditor
+namespace SRMultiplayer
 {
     [System.Serializable]
     public class PlayerSave

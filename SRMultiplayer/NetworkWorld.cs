@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SRMultiplayer.Models;
 
-namespace SRMPEditor
+namespace SRMultiplayer.Server
 {
     [Serializable]
     public class NetworkWorld
@@ -38,6 +38,10 @@ namespace SRMPEditor
         public List<byte> AllUpgrades = new List<byte>();
         public List<NetworkMailModel> AllMail = new List<NetworkMailModel>();
         public List<NetworkOffer> Offers = new List<NetworkOffer>();
+        public List<byte> AvailUpgrades = new List<byte>();
+        public List<string> lastOfferRancherIds = new List<string>();
+        public double NextDailyOfferCreateTime;
+        public List<string> pendingOfferRancherIds = new List<string>();
 
     }
    

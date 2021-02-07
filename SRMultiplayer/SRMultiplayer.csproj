@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="JSONSaves.cs" />
     <Compile Include="Models.cs" />
+    <Compile Include="NetworkWorld.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

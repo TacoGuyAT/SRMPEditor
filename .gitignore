@@ -1,0 +1,6 @@
+SRMPEditor/bin/
+SRMPEditor/obj/
+SRMultiplayer/bin/
+SRMultiplayer/obj/
+*.exe
+*.pdb
